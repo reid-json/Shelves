@@ -13,15 +13,13 @@ phases:
       - node -v
       - echo "NPM version:"
       - npm -v
-
-      - cd frontend/app
       - npm install
   build:
     commands:
       - npm run build
   post_build:
     commands:
-      - aws s3 sync frontend/app/dist/ s3://my-vue-app-bucket-shelves --delete
+      - aws s3 sync dist/ s3://my-vue-app-bucket-shelves --delete
 artifacts:
   files:
     - '**/*'
