@@ -18,10 +18,15 @@ phases:
       - npm install
   build:
     commands:
-      - npm run build
+      - cd frontend/app
+        - echo "Running build from $(pwd)"
+        - npm run build
+        - echo "Build complete — dumping contents:"
+        - ls -la
   post_build:
     commands:
-      - echo "Syncing dist to S3..."
+      - echo "Checking dist folder before sync..."
+      - ls -la frontend/app/dist || echo "dist folder not found"
       - aws s3 sync frontend/app/dist/ s3://my-vue-app-bucket-shelves --delete
 artifacts:
   files:
