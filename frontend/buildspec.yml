@@ -13,6 +13,8 @@ phases:
       - node -v
       - echo "NPM version:"
       - npm -v
+
+      - cd frontend
       - npm install
   build:
     commands:
