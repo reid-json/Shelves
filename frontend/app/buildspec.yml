@@ -5,29 +5,26 @@ env:
 phases:
   install:
     commands:
-      - echo "Installing Node.js 22 manually..."
       - curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
-      - apt-get install -y nodejs
-      - export PATH=/usr/bin:$PATH
-      - echo "Node version:"
-      - node -v
-      - echo "NPM version:"
-      - npm -v
-
-      - cd frontend/app/
-      - npm install
+        - apt-get install -y nodejs
+        - export PATH=/usr/bin:$PATH
+        - node -v
+        - npm -v
+        - echo "INSTALL complete"
   build:
     commands:
-      - cd frontend/app
-        - echo "Running build from $(pwd)"
-        - npm run build
-        - echo "Build complete — dumping contents:"
+        - echo "Current directory: $(pwd)"
         - ls -la
+        - echo "Trying to cd into frontend/app..."
+        - cd frontend/app || (echo "Directory not found — dumping tree:" && find . -type d && exit 1)
+        - npm install
+        - npm run build
+        - echo "Build complete — dumping dist:"
+        - ls -la dist
+
   post_build:
     commands:
-      - echo "Checking dist folder before sync..."
-      - ls -la frontend/app/dist || echo "dist folder not found"
-      - aws s3 sync frontend/app/dist/ s3://my-vue-app-bucket-shelves --delete
+       - aws s3 sync frontend/app/dist/ s3://my-vue-app-bucket-shelves --delete
 artifacts:
   files:
     - '**/*'
