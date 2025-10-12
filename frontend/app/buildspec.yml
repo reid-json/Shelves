@@ -20,7 +20,9 @@ phases:
       - ls -la dist
   post_build:
     commands:
-      - aws s3 sync frontend/app/dist/ s3://my-vue-app-bucket-shelves --delete
+      - echo "Syncing dist to S3..."
+      - ls -la dist || echo "dist folder not found"
+      - aws s3 sync dist/ s3://my-vue-app-bucket-shelves --delete
 
 artifacts:
   files:
