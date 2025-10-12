@@ -12,7 +12,7 @@ phases:
       - npm run build
   post_build:
     commands:
-      - aws s3 sync frontend/app/dist/ s3://your-s3-bucket-name --delete
+      - aws s3 sync frontend/app/dist/ s3://my-vue-app-bucket-shelves --delete
 artifacts:
   files:
     - '**/*'
