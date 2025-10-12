@@ -5,6 +5,8 @@ env:
 phases:
   install:
     commands:
+      - node -v
+      - npm -v
       - cd frontend/app
       - npm install
   build:
