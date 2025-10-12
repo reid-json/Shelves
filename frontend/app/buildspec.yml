@@ -8,7 +8,9 @@ phases:
       - echo "Installing Node.js 22 manually..."
       - curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
       - apt-get install -y nodejs
+      - echo "Node version:"
       - node -v
+      - echo "NPM version:"
       - npm -v
       - cd frontend/app
       - npm install
