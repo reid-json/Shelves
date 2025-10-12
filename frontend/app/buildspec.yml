@@ -5,8 +5,14 @@ env:
 phases:
   install:
     commands:
+      - echo "Node version:"
       - node -v
+      - echo "NPM version:"
       - npm -v
+      - echo "Available Node versions:"
+      - ls /opt/nodejs
+      - echo "System PATH:"
+      - echo $PATH
       - cd frontend/app
       - npm install
   build:
