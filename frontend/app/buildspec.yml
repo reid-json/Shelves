@@ -22,7 +22,8 @@ phases:
     commands:
       - echo "Syncing dist to S3..."
       - ls -la dist || echo "dist folder not found"
-      - aws s3 sync dist/ s3://my-vue-app-bucket-shelves --delete
+      - aws s3 sync dist/ s3://my-vue-app-bucket-shelves --delete --exact-timestamps --debug
+
 
 artifacts:
   files:
