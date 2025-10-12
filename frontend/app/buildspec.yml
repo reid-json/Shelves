@@ -5,14 +5,11 @@ env:
 phases:
   install:
     commands:
-      - echo "Node version:"
+      - echo "Installing Node.js 22 manually..."
+      - curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
+      - apt-get install -y nodejs
       - node -v
-      - echo "NPM version:"
       - npm -v
-      - echo "Available Node versions:"
-      - ls /opt/nodejs
-      - echo "System PATH:"
-      - echo $PATH
       - cd frontend/app
       - npm install
   build:
