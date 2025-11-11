@@ -2,22 +2,114 @@
 export default {
   data() {
     return {
-      albums: Array.from({ length: 20 }, (_, i) => ({
-        id: i,
-        title: `Album ${i + 1}`,
-        sleeveSrc: `/images/HOB.jpg`,
-        vinylSrc: `/images/vinyl.png`,
-        audioSrc: `/audio/HouseOfBallons/tildawn.mp3`,
-        isOpen: false,
-        isPlaying: false,
-        audio: null,
-      })),
+      albums: [
+        {
+          id: 0,
+          title: 'Skate',
+          sleeveSrc: '/images/BrunoCover.jpeg',
+          vinylSrc: '/images/vinyl.png',
+          audioSrc: '/audio/BrunoMars/Skate.mp3',
+          isOpen: false,
+          isPlaying: false,
+          audio: null,
+        },
+        {
+          id: 1,
+          title: 'forever??????????',
+          sleeveSrc: '/images/GlassCover.jpg',
+          vinylSrc: '/images/vinyl.png',
+          audioSrc: '/audio/GlassBeach/forever.mp3',
+          isOpen: false,
+          isPlaying: false,
+          audio: null,
+        },
+        {
+          id: 2,
+          title: 'Earthquake',
+          sleeveSrc: '/images/FKJCover.jpg',
+          vinylSrc: '/images/vinyl.png',
+          audioSrc: '/audio/FKJ/Earthquake.mp3',
+          isOpen: false,
+          isPlaying: false,
+          audio: null,
+        },
+        {
+          id: 3,
+          title: 'Change',
+          sleeveSrc: '/images/DeftonesCover.jpg',
+          vinylSrc: '/images/vinyl.png',
+          audioSrc: '/audio/Deftones/Change.mp3',
+          isOpen: false,
+          isPlaying: false,
+          audio: null,
+        },
+        {
+          id: 4,
+          title: 'Touch',
+          sleeveSrc: '/images/KatseyeCover.jpg',
+          vinylSrc: '/images/vinyl.png',
+          audioSrc: '/audio/Katseye/Touch.mp3',
+          isOpen: false,
+          isPlaying: false,
+          audio: null,
+        },
+        {
+          id: 5,
+          title: 'River',
+          sleeveSrc: '/images/LeonBridgesCover.jpg',
+          vinylSrc: '/images/vinyl.png',
+          audioSrc: '/audio/LeonBridges/River.mp3',
+          isOpen: false,
+          isPlaying: false,
+          audio: null,
+        },
+        {
+          id: 6,
+          title: 'Big Sleep',
+          sleeveSrc: '/images/TheWeekndCover.jpg',
+          vinylSrc: '/images/vinyl.png',
+          audioSrc: '/audio/TheWeeknd/BigSleep.mp3',
+          isOpen: false,
+          isPlaying: false,
+          audio: null,
+        },
+        {
+          id: 7,
+          title: 'Beyond The Sun',
+          sleeveSrc: '/images/ShinedownCover.jpg',
+          vinylSrc: '/images/vinyl.png',
+          audioSrc: '/audio/Shinedown/Beyond the Sun.mp3',
+          isOpen: false,
+          isPlaying: false,
+          audio: null,
+        },
+        {
+          id: 8,
+          title: 'Californication',
+          sleeveSrc: '/images/RHCPCover.jpg',
+          vinylSrc: '/images/vinyl.png',
+          audioSrc: '/audio/RHCP/Californication.mp3',
+          isOpen: false,
+          isPlaying: false,
+          audio: null,
+        },
+        {
+          id: 9,
+          title: 'From Eden',
+          sleeveSrc: '/images/HozierCover.jpg',
+          vinylSrc: '/images/vinyl.png',
+          audioSrc: '/audio/Hozier/FromEden.mp3',
+          isOpen: false,
+          isPlaying: false,
+          audio: null,
+        },
+      ],
     };
   },
   methods: {
-    playSong(index) {
+    stopAllExcept(indexToKeep) {
       this.albums.forEach((album, i) => {
-        if (i !== index) {
+        if (i !== indexToKeep) {
           if (album.audio) {
             album.audio.pause();
             album.audio.currentTime = 0;
@@ -26,8 +118,11 @@ export default {
           album.isPlaying = false;
         }
       });
-
+    },
+    playSong(index) {
+      this.stopAllExcept(index);
       const album = this.albums[index];
+
       if (!album.isOpen) {
         album.isOpen = true;
         setTimeout(() => {
@@ -48,13 +143,17 @@ export default {
       }
     },
     restartSong(index) {
+      this.stopAllExcept(index);
       const album = this.albums[index];
-      if (album.audio) {
+      if (!album.audio) {
+        album.audio = new Audio(album.audioSrc);
+      } else {
         album.audio.pause();
         album.audio.currentTime = 0;
-        album.audio.play();
-        album.isPlaying = true;
       }
+      album.audio.play();
+      album.isOpen = true;
+      album.isPlaying = true;
     },
     closeAlbum(index) {
       const album = this.albums[index];
@@ -70,7 +169,7 @@ export default {
 </script>
 <template>
   <div class="vinyl-shop">
-    <h1 class="shop-title">🎵 Vinyl Shop Collection 🎵</h1>
+    <h1 class="shop-title">Song Collection</h1>
     <div class="vinyl-grid">
       <div
           v-for="(album, index) in albums"
@@ -90,6 +189,7 @@ export default {
               :class="{ open: album.isOpen }"
           />
         </div>
+        <h2 class="album-title">{{ album.title }}</h2>
         <div class="controls">
           <button @click="playSong(index)">Play Song</button>
           <button @click="pauseSong(index)">Pause</button>
@@ -101,6 +201,13 @@ export default {
   </div>
 </template>
 <style scoped>
+
+.album-title {
+  margin: 10px 0;
+  font-size: 1.2rem;
+  color: #ff7777;
+  font-weight: bold;
+}
 .vinyl-shop {
   background-color: #0a0a0a;
   color: #f5f5f5;
