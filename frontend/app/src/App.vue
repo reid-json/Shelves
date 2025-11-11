@@ -103,6 +103,7 @@ export default {
           isPlaying: false,
           audio: null,
         },
+
       ],
     };
   },
