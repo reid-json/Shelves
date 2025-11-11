@@ -1,6 +1,7 @@
 version: 0.2
 
 phases:
+  #installing any dependencies
   install:
     commands:
       - curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
@@ -9,6 +10,7 @@ phases:
       - node -v
       - npm -v
       - echo "INSTALL complete"
+  #running npm run build to get the dist dir
   build:
     commands:
       - ls -la
@@ -18,6 +20,7 @@ phases:
       - npm run build
       - echo "Build complete — dumping dist:"
       - ls -la dist
+  #deploying to S3 and updating any files on S3 that are not on the current build
   post_build:
     commands:
       - echo "Syncing dist to S3..."
