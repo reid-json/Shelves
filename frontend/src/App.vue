@@ -6,7 +6,7 @@
   <header>
 
     <div class="wrapper">
-      <HelloWorld msg="You did it! check change" />
+      <HelloWorld msg="You did it! check changee" />
     </div>
   </header>
 
