@@ -103,7 +103,16 @@ export default {
           isPlaying: false,
           audio: null,
         },
-
+        {
+          id: 10,
+          title: 'Fragile',
+          sleeveSrc: '/images/TatsuroCover.jpg',
+          vinylSrc: '/images/vinyl.png',
+          audioSrc: '/audio/TatsuroYamashita/Fragile.mp3',
+          isOpen: false,
+          isPlaying: false,
+          audio: null,
+        },
       ],
     };
   },
